@@ -9,6 +9,8 @@ I wrote this code as one of my undergrad projects. This python code can calculat
     Moisture Content of Fine Aggregate
 The code will guide you through the above input parameters once you start running it.
 
+To use it, just copy the contents of PyCon.txt and paste it in your python IDE. Then run it.
+
 
 The code follows ACI 211.1-91. Following tables from ACI 211.1-91 was used in this program.
 
