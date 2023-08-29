@@ -1,0 +1,376 @@
+import math
+
+def interp(k, b, c):
+    x = [0, 9.5, 12.5, 19, 25, 37.5, 50, 75, 100]
+    y = [0] * 9
+    p = [0] * 10
+    f = 0.0
+    n = 8
+    f1 = 1
+    f2 = 0
+    j = 1
+    
+    slagwcnae2550 = [0, 207, 199, 190, 179, 166, 154, 130, 113]
+    slagwcnae75100 = [0, 228, 216, 205, 193, 181, 169, 145, 124]
+    slagwcnae150175 = [0, 243, 228, 216, 202, 190, 178, 160, 160]
+    slagwcae2550 = [0, 181, 175, 168, 160, 148, 142, 122, 107]
+    slagwcae75100 = [0, 202, 193, 184, 175, 165, 157, 133, 119]
+    slagwcae150175 = [0, 216, 205, 197, 184, 166, 154, 154, 154]
+
+    if b == 1:
+        if c == 1:
+            y = slagwcae2550
+        elif c == 2:
+            y = slagwcae75100
+        elif c == 3:
+            y = slagwcae150175
+    elif b == 2:
+        if c == 1:
+            y = slagwcnae2550
+        elif c == 2:
+            y = slagwcnae75100
+        elif c == 3:
+            y = slagwcnae150175
+
+    f = y[1]
+
+    while n != 1:
+        for i in range(1, n):
+            p[i] = (y[i + 1] - y[i]) / (x[i + j] - x[i])
+            y[i] = p[i]
+        f1 = 1
+        for i in range(1, j + 1):
+            f1 *= (k - x[i])
+        f2 += y[1] * f1
+        n -= 1
+        j += 1
+
+    f += f2
+    return f
+
+
+def interp2(k, b):
+    x = [0, 9.5, 12.5, 19, 25, 37.5, 50, 75, 150]
+    y = [0] * 9
+    p = [0] * 10
+    f = 0.0
+    n = 8
+    f1 = 1
+    f2 = 0
+    j = 1
+    
+    uwfcnae = [0, 2280, 2310, 2345, 2380, 2410, 2445, 2490, 2530]
+    uwfcae = [0, 2200, 2230, 2275, 2290, 2350, 2345, 2405, 2435]
+
+    if b == 1:
+        y = uwfcae
+    elif b == 2:
+        y = uwfcnae
+
+    f = y[1]
+
+    while n != 1:
+        for i in range(1, n):
+            p[i] = (y[i + 1] - y[i]) / (x[i + j] - x[i])
+            y[i] = p[i]
+        f1 = 1
+        for i in range(1, j + 1):
+            f1 *= (k - x[i])
+        f2 += y[1] * f1
+        n -= 1
+        j += 1
+
+    f += f2
+    return f
+
+
+
+def interp3(k, d):
+    x = [0, 9.5, 12.5, 19, 25, 37.5, 50, 75, 150]
+    y = [0] * 9
+    p = [0] * 10
+    f = 0.0
+    n = 8
+    f1 = 1
+    f2 = 0
+    j = 1
+    
+    fm24 = [0, 0.5, 0.59, 0.66, 0.71, 0.75, 0.78, 0.82, 0.87]
+    fm25 = [0, 0.49, 0.58, 0.65, 0.7, 0.74, 0.77, 0.81, 0.86]
+    fm26 = [0, 0.48, 0.57, 0.64, 0.69, 0.73, 0.76, 0.8, 0.85]
+    fm27 = [0, 0.47, 0.56, 0.63, 0.68, 0.72, 0.75, 0.79, 0.84]
+    fm28 = [0, 0.46, 0.55, 0.62, 0.67, 0.71, 0.74, 0.78, 0.83]
+    fm29 = [0, 0.45, 0.54, 0.61, 0.66, 0.7, 0.73, 0.77, 0.82]
+    fm3 = [0, 0.44, 0.53, 0.6, 0.65, 0.69, 0.72, 0.76, 0.81]
+
+    if d == 2.4:
+        y = fm24
+    elif d == 2.5:
+        y = fm25
+    elif d == 2.6:
+        y = fm26
+    elif d == 2.7:
+        y = fm27
+    elif d == 2.8:
+        y = fm28
+    elif d == 2.9:
+        y = fm29
+    elif d == 3:
+        y = fm3
+
+    f = y[1]
+
+    while n != 1:
+        for i in range(1, n):
+            p[i] = (y[i + 1] - y[i]) / (x[i + j] - x[i])
+            y[i] = p[i]
+        f1 = 1
+        for i in range(1, j + 1):
+            f1 *= (k - x[i])
+        f2 += y[1] * f1
+        n -= 1
+        j += 1
+
+    f += f2
+    return f
+
+
+
+strwcae = [0] * 46
+strwcnae = [0] * 46
+fcw = [0] * 41
+mafm = [0] * 9
+mafm24 = [0] * 9
+mafm25 = [0] * 9
+mafm26 = [0] * 9
+mafm27 = [0] * 9
+mafm28 = [0] * 9
+mafm29 = [0] * 9
+mafm3 = [0] * 9
+wc, u, slumptest, agg = 0, 0, 0, 0
+aggsize = [0] * 9
+a1, a2, a3, a4, a5, a6, b1, b2, b3, b4, b5 = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+c1, c2, c3, c4, d1, d2, d3 = 0, 0, 0, 0, 0, 0, 0
+wtrcon = 0
+dl1, dl2, dl3, dl4, dl5, dl6, dl7, dk, y = [0] * 7, [0] * 6, [0] * 5, [0] * 4, [0] * 3, [0] * 2, [0] * 1, [0] * 7, [0] * 9
+p, unwc, vdr, ccon, aggcon, cacon, facon = 0, 0, 0, 0, 0, 0, 0
+fm = 0
+str, i, j, k, flag1, flag2, typfl, slcls = 0, 0, 0, 0, 0, 1, 0, 0
+mafc, maff, nca, nfa, nw, scon, rw, rce, rc, rf = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+# water-cement ratio based on strength of concrete. ae
+strwcae[15] = 0.70
+strwcae[20] = 0.60
+strwcae[25] = 0.52
+strwcae[30] = 0.45
+strwcae[35] = 0.39
+strwcae[40] = 0.34
+strwcae[45] = 0.30
+
+# water-cement ratio based on strength of concrete. nae
+strwcnae[15] = 0.79
+strwcnae[20] = 0.69
+strwcnae[25] = 0.61
+strwcnae[30] = 0.54
+strwcnae[35] = 0.47
+strwcnae[40] = 0.42
+strwcnae[45] = 0.38
+
+# weight of fresh concrete based on max. agg. size
+fcw[10] = 2285
+fcw[20] = 2355
+fcw[40] = 2420
+
+# max agg size based on fm
+mafm[1]=0.375
+mafm[2]=0.500
+mafm[3]=0.750
+mafm[4]=1.0
+mafm[4]=1.0
+mafm[5]=1.5
+mafm[6]=2.0
+mafm[7]=3.0
+mafm[8]=6.0
+mafm24[1]=.5
+mafm24[2]=.59
+mafm24[3]=.66
+mafm24[4]=.71
+mafm24[5]=.75
+mafm24[6]=.78
+mafm24[7]=.82
+mafm24[8]=.87
+mafm25[1]=.49
+mafm25[2]=.58
+mafm25[3]=.65
+mafm25[4]=.70
+mafm25[5]=.74
+mafm25[6]=.77
+mafm25[7]=.81
+mafm25[8]=.86
+mafm26[1]=.48
+mafm26[2]=.57
+mafm26[3]=.64
+mafm26[4]=.69
+mafm26[5]=.73
+mafm26[6]=.76
+mafm26[7]=.80
+mafm26[8]=.85
+mafm27[1]=.47
+mafm27[2]=.56
+mafm27[3]=.63
+mafm27[4]=.68
+mafm27[5]=.72
+mafm27[6]=.75
+mafm27[7]=.79
+mafm27[8]=.84
+mafm28[1]=.46
+mafm28[2]=.55
+mafm28[3]=.62
+mafm28[4]=.67
+mafm28[5]=.71
+mafm28[6]=.74
+mafm28[7]=.78
+mafm28[8]=.83
+mafm29[1]=.45
+mafm29[2]=.54
+mafm29[3]=.61
+mafm29[4]=.66
+mafm29[5]=.70
+mafm29[6]=.73
+mafm29[7]=.77
+mafm29[8]=.82
+mafm3[1]=.44
+mafm3[2]=.53
+mafm3[3]=.60
+mafm3[4]=.65
+mafm3[5]=.69
+mafm3[6]=.72
+mafm3[7]=.76
+mafm3[8]=.81
+# slump agg. relation with water amount
+# aggregate sizes
+aggsize[1]=9.5
+aggsize[2]=12.5
+aggsize[3]=19
+aggsize[4]=25
+aggsize[5]=37.5
+aggsize[6]=50
+aggsize[7]=75
+aggsize[8]=100
+
+
+print("Enter the data as asked from below.")
+print("Compressive Strength in MPa. Note that, it has to be between 45-15 Mpa.")
+str = int(input())
+print("Enter the concrete type :\n1.Air Entrained Concrete.\n2.Non-air Entrained Concrete\n")
+typfl = int(input())
+
+if typfl == 1:
+    flag2 = 1
+    for i in range(15, 46, 15):
+        if i == str:
+            flag2 = 2
+    if flag2 == 2:
+        wc = strwcae[str]
+    if flag2 == 1:
+        a1, a2, a3, a4, a5, a6 = -0.1, -0.08, -0.07, -0.06, -0.05, -0.04
+        b1, b2, b3, b4, b5 = 0.02, 0.01, 0.01, 0.01, 0.01
+        c1, c2, c3, c4 = -0.01, 0, 0, 0
+        d1, d2, d3 = 0.01, 0, 0
+        u = (str - 30) / 5
+        wc = 0.45 + (u * ((a3 + a4) / 2)) + ((u ** 2 / 2) * b3) + (((u * (u ** 2 - 1)) / 6) * ((c2 + c3) / 2)) + ((u ** 2 * (u ** 2 - 1)) * d2)
+
+elif typfl == 2:
+    flag2 = 1
+    for i in range(15, 46, 15):
+        if i == str:
+            flag2 = 2
+    if flag2 == 2:
+        wc = strwcnae[str]
+    if flag2 == 1:
+        a1, a2, a3, a4, a5, a6 = -0.1, -0.08, -0.07, -0.07, -0.05, -0.04
+        b1, b2, b3, b4, b5 = 0.02, 0.01, 0, 0.02, 0.01
+        c1, c2, c3, c4 = -0.01, -0.01, 0.02, -0.01
+        d1, d2, d3 = 0, 0.03, -0.03
+        u = (str - 30) / 5
+        wc = 0.54 + (u * ((a3 + a4) / 2)) + ((u ** 2 / 2) * b3) + (((u * (u ** 2 - 1)) / 6) * ((c2 + c3) / 2)) + ((u ** 2 * (u ** 2 - 1)) * d2)
+
+
+print("Enter your structure type.")
+print("1.Reinforced Foundation Walls and Footings\n2.Plain Footings, caissons and substructure walls\n3.Beams and Reinforced Walls\n4.Building Columns\n5.Pavements and Slabs\n6.Mass Concrete.")
+flag1 = int(input())
+
+if flag1 == 1:
+    print("For Reinforced Foundation Walls and Footings, the slump value has to be 75mm-25mm.So, enter a slump value within this limit.")
+    slump = float(input())
+elif flag1 == 2:
+    print("For Plain Footings, caissons and substructure walls, the slump value has to be 75mm-25mm.So, enter a slump value within this limit.")
+    slump = float(input())
+elif flag1 == 3:
+    print("For Beams and Reinforced Walls, the slump value has to be 100mm-25mm.So, enter a slump value within this limit.")
+    slump = float(input())
+elif flag1 == 4:
+    print("For Building Columns, the slump value has to be 100mm-25mm.So, enter a slump value within this limit.")
+    slump = float(input())
+elif flag1 == 5:
+    print("For Pavements and Slab, the slump value has to be 75mm-25mm.So, enter a slump value within this limit.")
+    slump = float(input())
+elif flag1 == 6:
+    print("For Mass concrete, the slump value has to be 75mm-25mm.So, enter a slump value within this limit.")
+    slump = float(input())
+
+if slump >= 25 and slump <= 50:
+    slcls = 1
+elif slump >= 75 and slump <= 100:
+    slcls = 2
+elif slump >= 150 and slump <= 175:
+    slcls = 3
+
+
+
+agg = float(input("Please enter the maximum aggregate size in mm.\n"))
+
+if agg >= 9.5 and agg < 12.5:
+    k = 1
+elif agg >= 12.5 and agg < 19:
+    k = 2
+elif agg >= 19 and agg < 25:
+    k = 3
+elif agg >= 25 and agg < 37.5:
+    k = 4
+elif agg >= 37.5 and agg < 50:
+    k = 5
+elif agg >= 50 and agg < 75:
+    k = 6
+elif agg >= 75 and agg < 100:
+    k = 7
+
+wtrcon = interp(agg,typfl,slcls)
+print(wtrcon)
+
+unwc = interp2(agg,typfl)
+print(unwc)
+
+fm = float(input("Enter the FM Value. Note that, FM value has to be between 2.4-3.0 and there has to be only one digit after the decimal point.\n"))
+
+vdr = interp3(agg,fm)
+print(vdr)
+
+ccon = wtrcon/wc
+aggcon = unwc - (wtrcon + ccon)
+cacon = aggcon*vdr
+facon = aggcon - cacon
+mafc = float(input("Enter the moisture content of coarse aggregate in percentage.\n"))
+maff = float(input("Enter the moisture content of fine aggregate in percentage.\n"))
+nca = cacon * (1 + (mafc / 100))
+nfa = facon * (1 + (maff / 100))
+nw = wtrcon - (cacon * (mafc / 100)) - (facon * (maff / 100))
+if nw < 0:
+    nw = nw * -1
+
+print(f"Water {int(nw)} kg/m3\nCement {int(ccon)} kg/m3\nCoarse Aggregate {int(nca)} kg/m3\nFine Aggregate {int(nfa)} kg/m3")
+rw = nw / ccon
+rce = ccon / ccon
+rc = nca / ccon
+rf = nfa / ccon
+print(f"The ratio of C : FA : CA : W is {int(rce)} : {rf:.1f} : {rc:.1f} : {rw:.1f}")
